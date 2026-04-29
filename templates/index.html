@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; text-align: center; }
+        textarea { width: 100%; height: 120px; padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; resize: vertical; }
+        button { display: block; margin: 15px auto; padding: 12px 30px; font-size: 16px; background-color: #0062ff; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        button:hover { background-color: #0050d0; }
+        #result { margin-top: 20px; padding: 15px; background-color: white; border-radius: 8px; border: 1px solid #ddd; font-size: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Emotion Detection App</h1>
+    <p style="text-align:center;">Enter text below to detect the dominant emotion.</p>
+    <textarea id="textInput" placeholder="Type your text here..."></textarea>
+    <button onclick="detectEmotion^(^)">Analyze Emotion</button>
+    <div id="result">Results will appear here...</div>
+    <script>
+        function detectEmotion() {
+            const text = document.getElementById("textInput").value;
+            if (!text.trim()) { document.getElementById("result").innerText = "Please enter some text!"; return; }
+            fetch(`/emotionDetector?textToAnalyze=${encodeURIComponent(text)}`)
+                .then(response => response.text())
+                .then(data => { document.getElementById("result").innerText = data; })
+                .catch(error => { document.getElementById("result").innerText = "Error: " + error; });
+        }
+    </script>
+</body>
+</html>
